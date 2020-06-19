@@ -1,17 +1,36 @@
-<template>
+<template lang="">
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <p>Pokemon Select</p>
+    <pkmn-select :pokemon="pokemon"></pkmn-select>
+    <pkmn-detail :pkmn="selectedPkmn"></pkmn-detail>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import {eventBus} from './main.js'
+import PkmnSelect from './components/PkmnSelect.vue'
+import PkmnDetail from './components/PkmnDetail'
 export default {
   name: 'App',
+  data(){
+    return{
+      pokemon:[],
+      selectedPkmn: null
+    }
+  },
+  mounted(){
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+    .then(res => res.json())
+    .then(data => this.pokemon = data)
+
+    eventBus.$on('pkmn-selected', (pkmn) => {
+      this.selectedPkmn = pkmn
+    })
+  },
   components: {
-    HelloWorld
+    'pkmn-select' :PkmnSelect,
+    'pkmn-detail' :PkmnDetail
   }
 }
 </script>
@@ -24,5 +43,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+@import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
+
+body {
+  margin: 0;
+  padding: 0;
 }
 </style>
