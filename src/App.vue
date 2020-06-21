@@ -1,18 +1,28 @@
 <template lang="">
   <div id="app" class="main">
-    <h1>PokeDex</h1>
-    <pkmn-select :pokemon="pokemon"></pkmn-select>
-    <pkmn-detail :pkmn="selectedPkmn"></pkmn-detail>
+      <img src="../public/pokevuetransparent.png" alt="PokéVue"><br>
+    <pkmn-filter-form :pokemon="pokemon" />
+    <div>
+    <pkmn-detail v-if="selectedPkmn" :pkmn="selectedPkmn"></pkmn-detail>
+    <!-- <pkmn-list :pokemon="pokemon"></pkmn-list> -->
+    <!-- <team-list :team="team"></team-list> -->
+    <!-- <pkmn-select :pokemon="pokemon"></pkmn-select> -->
+  </div>
+    <p>By Donald Cameron</p>
 
   </div>
 </template>
 
 <script>
 import {eventBus} from './main.js'
-import PkmnSelect from './components/PkmnSelect.vue'
-import PkmnDetail from './components/PkmnDetail'
+// import PkmnList from './components/PkmnList.vue'
+// import PkmnSelect from './components/PkmnSelect.vue'
+import PkmnDetail from './components/PkmnDetail.vue'
+// import TeamList from '.components/TeamList.vue'
+import PkmnFilterForm from './components/PkmnFilterForm.vue'
 export default {
   name: 'App',
+
   data(){
     return{
       pokemon:[],
@@ -20,7 +30,7 @@ export default {
     }
   },
   mounted(){
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=251/`)
+    fetch(`https://pokeapi.co/api/v2/pokemon?limit=809/`)
       .then(res => res.json())
       .then(data => this.pokemon = data.results)
 
@@ -31,8 +41,16 @@ export default {
       })
     },
     components: {
-      'pkmn-select' :PkmnSelect,
+      'pkmn-filter-form' :PkmnFilterForm,
+      // 'pkmn-select' :PkmnSelect,
       'pkmn-detail' :PkmnDetail
+      // 'team-list' :TeamList
+      // 'pkmn-list'   :PkmnList
+    // },
+    // computed: {
+    //   team: function() {
+    //     return this.pokemon.filter(pkmn => pkmn.isInTeam);
+    //   }
     }
   }
 </script>

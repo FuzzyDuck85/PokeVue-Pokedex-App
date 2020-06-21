@@ -1,8 +1,9 @@
 <template lang="html">
+  <div id="detail">
   <div v-if="pkmn">
-    <div class="detail-view">
+    <div id="detail-view">
       <h2>{{pkmn.name}}</h2>
-      <div>
+      <div class="image">
         <img :src='pkmn.sprites.front_default' :alt='pkmn.name'>
         <img :src='pkmn.sprites.front_shiny' :alt='pkmn.name'>
       </div>
@@ -26,41 +27,43 @@
           {{ value.ability.name }}
         </div>
       </div>
+      <!-- <button v-if="!pkmn.isInTeam" v-on:click="addToTeam">Add to Team</button>
+      <button v-if="pkmn.isInTeam" v-on:click="removeFromTeam">Remove from Team</button> -->
     </div>
   </div>
+</div>
 </template>
 
 <script>
+import {eventBus} from "../main.js";
 export default {
   name: 'pkmn-detail',
-  props: ['pkmn']
+  props: ['pkmn'],
+  methods: {
+    addToTeam: function() {
+      eventBus.$emit("pkmn-added", this.pkmn);
+    },
+    removeFromTeam: function () {
+      eventBus.$emit("pkmn-removed", this.pkmn);
+    }
+  }
 }
 
 </script>
 
 <style lang="css" scoped>
-.detail {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 90px 10px 10px;
-  width: calc(100% - 20px);
-  height: calc(100vh - 20px);
-  background: rgba(color: #000000, alpha: .7);
-}
-.detail-view {
+
+#detail-view {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  position: relative;
-  width: 100%;
+  position: inherit;
+  width: 400px;
+  height: 500px;
   max-width: 800px;
   padding: 10px 0 0;
-  background: radial-gradient(white, lightblue);
+  background: radial-gradient(lightgoldenrodyellow, yellow);
   border-radius: 5px;
   box-shadow: 0 15px 30px rgba(0,0,0,.2),
   0 10px 10px rgba(0,0,0,.2);
@@ -72,19 +75,15 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: -60px;
-  width: 120px;
+  position: relative;
+  top: -11px;
+  width: 200px;
   height: 120px;
-  background-color: #333;
-  border-radius: 50%;
+  background-color: white;
+  border-radius: 2%;
   overflow: hidden;
-  box-shadow: 0 15px 30px rgba(0,0,0,.2),
+  box-shadow: 0 5px 10px rgba(0,0,0,.2),
   0 10px 10px rgba(0,0,0,.2);
-}
-
-h2 {
-  text-transform: capitalize;
 }
 
 .data {
@@ -106,7 +105,6 @@ h2 {
 
 
 h3 {
-  width: 90%;
   max-width: 400px;
   border-bottom: 1px solid #ccc;
 }
@@ -125,28 +123,9 @@ h3 {
   color: black;
   font-size: 1rem;
   letter-spacing: 2px;
-  text-transform: capitalize;
-  word-wrap: none;
-  word-break: keep-all;
 }
 
 .type { background-color: darkgrey; }
 .ability { background-color: white; }
 
-.close {
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  background-color: #333;
-  color: #efefef;
-  padding: 10px 20px;
-  margin-bottom: 20px;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-i {
-  font-size: 2rem;
-  color: #efefef;
-}
 </style>
