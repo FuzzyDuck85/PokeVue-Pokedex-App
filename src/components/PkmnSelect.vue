@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
-    <select v-on:change="handleSelect" v-model="selectedPkmn">
-      <option v-for="(pkmn, index) in pokemon.results" :value="pkmn" :key="index">{{pkmn.name}}</option>
+    <select v-on:change="handleChange" v-model="selectedPkmn">
+      <option v-for="(pkmn, index) in pokemon" :value="pkmn" :key="index">{{pkmn.name}}</option>
     </select>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
     }
   },
   methods: {
-    handleSelect(){
+    handleChange(){
       eventBus.$emit('pkmn-selected', this.selectedPkmn)
     }
   }
