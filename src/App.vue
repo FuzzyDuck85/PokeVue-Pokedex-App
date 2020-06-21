@@ -8,7 +8,7 @@
       <!-- <team-list :team="team"></team-list> -->
       <!-- <pkmn-select :pokemon="pokemon"></pkmn-select> -->
     </div><br>
-    <p>By Donald Cameron</p>
+    <img src="../public/DCTransparent.png" alt="By Donald Cameron"><br>
 
   </div>
 </template>
