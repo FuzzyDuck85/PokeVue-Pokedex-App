@@ -1,6 +1,6 @@
 <template lang="">
-  <div id="app">
-    <p>PokeDex</p>
+  <div id="app" class="main">
+    <h1>PokeDex</h1>
     <pkmn-select :pokemon="pokemon"></pkmn-select>
     <pkmn-detail :pkmn="selectedPkmn"></pkmn-detail>
 
@@ -20,7 +20,7 @@ export default {
     }
   },
   mounted(){
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=151/`)
+    fetch(`https://pokeapi.co/api/v2/pokemon?limit=251/`)
       .then(res => res.json())
       .then(data => this.pokemon = data.results)
 
@@ -40,19 +40,20 @@ export default {
   <style>
   #app {
     text-transform: capitalize;
-    font-family: 'Press Start 2P';
-    line-height: 160%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
   }
+    h1 { color: #efefef; }
+  .main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 10px;
+      width: calc(100% - 20px);
+      min-height: calc(100vh - 20px);
+      background: radial-gradient(red, black);
 
-  @import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
-
-  body {
-    margin: 0;
-    padding: 0;
-  }
+      font-family: 'Acme', arial;
+      font-size: 1rem;
+      font-weight: normal;
+    }
   </style>
