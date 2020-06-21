@@ -1,13 +1,13 @@
 <template lang="">
   <div id="app" class="main">
-      <img src="../public/pokevuetransparent.png" alt="PokéVue"><br>
-    <pkmn-filter-form :pokemon="pokemon" />
+    <img src="../public/pokevuetransparent.png" alt="PokéVue"><br>
+    <pkmn-filter-form :pokemon="pokemon" /><br>
     <div>
-    <pkmn-detail v-if="selectedPkmn" :pkmn="selectedPkmn"></pkmn-detail>
-    <!-- <pkmn-list :pokemon="pokemon"></pkmn-list> -->
-    <!-- <team-list :team="team"></team-list> -->
-    <!-- <pkmn-select :pokemon="pokemon"></pkmn-select> -->
-  </div>
+      <pkmn-detail v-if="selectedPkmn" :pkmn="selectedPkmn"></pkmn-detail>
+      <!-- <pkmn-list :pokemon="pokemon"></pkmn-list> -->
+      <!-- <team-list :team="team"></team-list> -->
+      <!-- <pkmn-select :pokemon="pokemon"></pkmn-select> -->
+    </div><br>
     <p>By Donald Cameron</p>
 
   </div>
@@ -29,38 +29,48 @@ export default {
       selectedPkmn: null
     }
   },
-  mounted(){
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=809/`)
-      .then(res => res.json())
-      .then(data => this.pokemon = data.results)
-
-      eventBus.$on('pkmn-selected', (pkmn) => {
-        fetch (`${pkmn.url}`)
+  methods: {
+    getPokemon: function() {
+      fetch(`https://pokeapi.co/api/v2/pokemon?limit=807/`)
         .then(res => res.json())
-        .then(data => this.selectedPkmn = data)
-      })
-    },
-    components: {
-      'pkmn-filter-form' :PkmnFilterForm,
-      // 'pkmn-select' :PkmnSelect,
-      'pkmn-detail' :PkmnDetail
-      // 'team-list' :TeamList
-      // 'pkmn-list'   :PkmnList
-    // },
-    // computed: {
-    //   team: function() {
-    //     return this.pokemon.filter(pkmn => pkmn.isInTeam);
-    //   }
+        .then(data => this.pokemon = data.results)
+      },
+      getDexEntry: function() {
+        fetch(`https://pokeapi.co/api/v2/pokemon-species?limit=807/`)
+          .then(res => res.json())
+          .then(data => this.pokemon = data.results)
+        }
+      },
+      mounted(){
+        this.getPokemon();
+        eventBus.$on('pkmn-selected', (pkmn) => {
+          fetch (`${pkmn.url}`)
+          .then(res => res.json())
+          .then(data => this.selectedPkmn = data)
+        })
+      },
+      components: {
+        'pkmn-filter-form' :PkmnFilterForm,
+        // 'pkmn-select' :PkmnSelect,
+        'pkmn-detail' :PkmnDetail
+        // 'team-list' :TeamList
+        // 'pkmn-list'   :PkmnList
+        // },
+        // computed: {
+        //   team: function() {
+        //     return this.pokemon.filter(pkmn => pkmn.isInTeam);
+        //   }
+      }
     }
-  }
-</script>
 
-  <style>
-  #app {
-    text-transform: capitalize;
-  }
+    </script>
+
+    <style>
+    #app {
+      text-transform: capitalize;
+    }
     h1 { color: #efefef; }
-  .main {
+    .main {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -74,4 +84,6 @@ export default {
       font-size: 1rem;
       font-weight: normal;
     }
-  </style>
+    p{
+      color: darkred}
+      </style>

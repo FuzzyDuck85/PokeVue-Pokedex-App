@@ -27,6 +27,10 @@
           {{ value.ability.name }}
         </div>
       </div>
+      <!-- <h3>Dex Entry</h3>
+      <div class="">
+        <div class="pokedex">{{getPkmnDex[0].flavour_text}}</div>
+      </div> -->
       <!-- <button v-if="!pkmn.isInTeam" v-on:click="addToTeam">Add to Team</button>
       <button v-if="pkmn.isInTeam" v-on:click="removeFromTeam">Remove from Team</button> -->
     </div>
@@ -35,18 +39,25 @@
 </template>
 
 <script>
-import {eventBus} from "../main.js";
+// import {eventBus} from "../main.js";
 export default {
   name: 'pkmn-detail',
-  props: ['pkmn'],
-  methods: {
-    addToTeam: function() {
-      eventBus.$emit("pkmn-added", this.pkmn);
-    },
-    removeFromTeam: function () {
-      eventBus.$emit("pkmn-removed", this.pkmn);
-    }
-  }
+  props: ['pkmn']
+  // methods: {
+  //   getDexEntry(pokemon) {
+  //     const data = fetch(`${pokemon.species.url}`)
+  //     const json = data.json()
+  //     return json.flavor_text_entries.filter(function(element) {
+  //       return element.language.name === 'en'
+  //     })
+  //   }
+  //   addToTeam: function() {
+  //     eventBus.$emit("pkmn-added", this.pkmn);
+  //   },
+  //   removeFromTeam: function () {
+  //     eventBus.$emit("pkmn-removed", this.pkmn);
+  //   }
+
 }
 
 </script>
@@ -65,6 +76,7 @@ export default {
   padding: 10px 0 0;
   background: radial-gradient(lightgoldenrodyellow, yellow);
   border-radius: 5px;
+  border-style: ridge;
   box-shadow: 0 15px 30px rgba(0,0,0,.2),
   0 10px 10px rgba(0,0,0,.2);
   top: 0   ;
@@ -80,7 +92,8 @@ export default {
   width: 200px;
   height: 120px;
   background-color: white;
-  border-radius: 2%;
+  border-style: ridge;
+  border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 5px 10px rgba(0,0,0,.2),
   0 10px 10px rgba(0,0,0,.2);
