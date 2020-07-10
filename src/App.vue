@@ -22,7 +22,6 @@ import PkmnDetail from './components/PkmnDetail.vue'
 import PkmnFilterForm from './components/PkmnFilterForm.vue'
 export default {
   name: 'App',
-
   data(){
     return{
       pokemon:[],
@@ -62,7 +61,6 @@ export default {
         //   }
       }
     }
-
     </script>
 
     <style>
@@ -79,7 +77,6 @@ export default {
       width: calc(100% - 20px);
       min-height: calc(100vh - 20px);
       background: radial-gradient(red, black);
-
       font-family: 'Acme', arial;
       font-size: 1rem;
       font-weight: normal;
